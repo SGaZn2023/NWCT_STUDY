@@ -55,5 +55,3 @@ type ProxyProtocol struct {
 - smux    // 暂时使用这个
 - yamux
 - optw (github.com/ICKelin/optw (smux/kcp/quic))
-
-
