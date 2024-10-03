@@ -6,14 +6,14 @@
 
 ## 使用方法
 
-将 gateway(.exe)、gateway.yaml、proxy.json 文件放入服务器的同一个文件夹下
+将编译好的 gateway(.exe) 与配置文件 gateway.yaml、proxy.json 放入服务器的同一个文件夹下
 在该文件夹下输入命令
 
 ```bash
 ./gateway -c gateway.yaml
 ```
 
-将 client(.exe) 放在需要被内网穿透的计算机的同一个文件夹下
+将编译好的 client(.exe) 放在需要被内网穿透的计算机的同一个文件夹下
 在该文件夹下输入命令
 
 ```bash
