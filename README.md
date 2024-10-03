@@ -2,7 +2,7 @@
 
 ## 项目介绍
 
-此项目为一个内网穿透软件，仅用于学习交流
+此项目为一个内网穿透软件（暂仅支持TCP穿透），仅用于学习交流
 
 ## 使用方法
 
@@ -33,13 +33,13 @@ proxy.json
 ```json
 [
   {
-    "client_id": "此连接ID",    // 需与上述命令中的ID相同
-    "public_protocol": "tcp",    // 暂仅支持tcp
-    "public_ip": "127.0.0.1",    // 服务器IP，最好写服务器的内网IP
-    "public_port": 20000,        // 内网穿透服务器端口
-    "internal_protocol": "tcp",    // 暂仅支持tcp
-    "internal_ip": "127.0.0.1",    // 需要内网穿透的计算机的IP地址，一般为 127.0.0.1
-    "internal_port": 5101        // 需要内网穿透的计算机的端口
+    "client_id": "此连接ID，需与上述命令中的ID相同", 
+    "public_protocol": "tcp",
+    "public_ip": "服务器IP，最好写服务器的内网IP",
+    "public_port": 20000, 
+    "internal_protocol": "tcp",
+    "internal_ip": "需要内网穿透的计算机的IP地址，一般为 127.0.0.1",
+    "internal_port": 5101
   }
 ]
 ```
