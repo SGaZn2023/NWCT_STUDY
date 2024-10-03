@@ -20,6 +20,30 @@
 ./client -client_id="该ID名任取" -server_addr="服务器地址（带端口）"
 ```
 
+## 配置文件
+
+gateway.yaml
+
+```yaml
+listener_file: ./proxy.json    // 读取proxy.json文件
+```
+
+proxy.json
+
+```json
+[
+  {
+    "client_id": "此连接ID",    // 需与上述命令中的ID相同
+    "public_protocol": "tcp",    // 暂仅支持tcp
+    "public_ip": "127.0.0.1",    // 服务器IP，最好写服务器的内网IP
+    "public_port": 20000,        // 内网穿透服务器端口
+    "internal_protocol": "tcp",    // 暂仅支持tcp
+    "internal_ip": "127.0.0.1",    // 需要内网穿透的计算机的IP地址，一般为 127.0.0.1
+    "internal_port": 5101        // 需要内网穿透的计算机的端口
+  }
+]
+```
+
 ## 项目配置细节
 
 ### 客户端配置
