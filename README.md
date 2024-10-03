@@ -22,7 +22,9 @@
 
 ## 项目配置细节
 
-// 客户端配置
+### 客户端配置
+
+```Go
 type ClientInfo struct {
     ClientID string
     PublicIP string
@@ -32,14 +34,20 @@ type ClientInfo struct {
     InternalPort uint16
     InternalProtocol string
 }
+```
 
-// session
+### session
+
+```Go
 type Session struct {
     ClientID string
     Connection net.Conn
 }
+```
 
-// 私有协议（proxyProtocol）
+### 私有协议（proxyProtocol）
+
+```Go
 type ProxyProtocol struct {
     ClientID string
     PublicIP string
@@ -49,7 +57,7 @@ type ProxyProtocol struct {
     InternalPort uint16
     InternalProtocol string
 }
-
+```
 // 双向长连接
 
 - smux    // 暂时使用这个
