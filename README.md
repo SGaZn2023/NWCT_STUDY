@@ -58,8 +58,8 @@ type ProxyProtocol struct {
     InternalProtocol string
 }
 ```
-// 双向长连接
+### 双向长连接
 
-- smux    // 暂时使用这个
+- smux 暂时使用这个
 - yamux
 - optw (github.com/ICKelin/optw (smux/kcp/quic))
