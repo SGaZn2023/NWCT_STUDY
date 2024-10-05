@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"nwct_st/common"
+	httprouter "nwct_st/gateway/http_router"
 )
 
 func main() {
@@ -21,6 +22,10 @@ func main() {
 	}
 
 	sessionMgr := NewSessionManager()
+	httpRouter := httprouter.NewApisixRouter(&httprouter.ApisixConfig{
+		Api: "http://127.0.0.1:9180",
+		Key: "123",
+	})
 
 	for _, listenerConfig := range listenerConfigs {
 		listener := NewListener(&common.ProxyProtocol{
@@ -31,7 +36,7 @@ func main() {
 			InternalProtocol: listenerConfig.InternalProtocol,
 			InternalIP:       listenerConfig.InternalIP,
 			InternalPort:     listenerConfig.InternalPort,
-		}, sessionMgr)
+		}, sessionMgr, httpRouter)
 
 		go func() {
 			defer listener.Close()
@@ -41,6 +46,7 @@ func main() {
 			}
 		}()
 	}
+
 	gw := NewGateway(":5103", sessionMgr)
 	err = gw.ListenAndServe()
 	if err != nil {

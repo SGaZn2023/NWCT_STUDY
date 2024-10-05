@@ -5,6 +5,7 @@ import (
 	"io"
 	"net"
 	"nwct_st/common"
+	httprouter "nwct_st/gateway/http_router"
 	"sync"
 	"time"
 
@@ -16,28 +17,46 @@ const (
 )
 
 type Listener struct {
-	pp          *common.ProxyProtocol
-	sessionMgr  *SessionManager
-	closeOnce   sync.Once
-	close       chan struct{}
-	tcpListener net.Listener
+	listenerConfig *ListenerConfig
+	pp             *common.ProxyProtocol
+	sessionMgr     *SessionManager
+	closeOnce      sync.Once
+	close          chan struct{}
+	tcpListener    net.Listener
+	httpRouter     httprouter.HTTPRouter
 }
 
-func NewListener(pp *common.ProxyProtocol, sessionMgr *SessionManager) *Listener {
+func NewListener(pp *common.ProxyProtocol,
+	sessionMgr *SessionManager,
+	httpRouter httprouter.HTTPRouter) *Listener {
 	return &Listener{
 		pp:         pp,
 		close:      make(chan struct{}),
 		sessionMgr: sessionMgr,
+		httpRouter: httpRouter,
 	}
 }
 
 func (l *Listener) ListenAndServer() error {
 	switch l.pp.PublicProtocol {
+	case "http":
+		return l.listenAndServeHTTP()
 	case "tcp":
 		return l.listenAndServeTCP()
 	default:
 		return fmt.Errorf("unsupported protocol: %s", l.pp.PublicProtocol)
 	}
+}
+
+func (l *Listener) listenAndServeHTTP() error {
+	// TODO: 更新 http_router 配置
+	err := l.httpRouter.UpdateRoute(l.listenerConfig.HTTPParam)
+	if err != nil {
+		return err
+	}
+
+	// 监听tcp
+	return l.listenAndServeTCP()
 }
 
 func (l *Listener) listenAndServeTCP() error {

@@ -1,11 +1,22 @@
 [
   {
     "client_id": "test-client",
-    "public_protocol": "tcp",
+    "public_protocol": "http",
     "public_ip": "127.0.0.1",
     "public_port": 20000,
     "internal_protocol": "tcp",
     "internal_ip": "127.0.0.1",
-    "internal_port": 5101
+    "internal_port": 5101,
+    "http_param": {
+      "id": "nwct_localhost_20000",
+      "uri": "/index.html",
+      "hosts": ["mine.sgz2.com"],
+      "upstream": {
+          "type": "roundrobin",
+          "nodes": {
+              "127.0.0.1:1980": 1
+          }
+      }
+    }
   }
 ]
